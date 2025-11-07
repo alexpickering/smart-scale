@@ -1,16 +1,13 @@
 from pathlib import Path
-from watchfiles import watch
 
 def main():
-    new_weight_path = Path("~/iCloud_drive/smart-scale-data/today_weight.txt")
-
-    # [ ] add watcher to check for changes
-    for changes in watch(new_weight_path):
-        print(changes)
+    new_weight_path = Path.home() / "iCloud_drive/smart-scale-data/today_weight.txt"
 
 
-# Client-server web stuff
-# TODO: apple health api to send new body weight data
+# TODO: build Progressive Web App for this
+# [ ] create iOS shortcut that pushes date and bodyweight
+    # [ ] pings web endpoint by opening URL
+    # [ ] opens PWA at the end as separate application
 
 # Data Processing
 # TODO: server takes new points, incorporates into rolling average
