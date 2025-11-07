@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "smart-scale"
+version = "0.1.0"
+description = "Smooths bodyweight curve w/ rolling averages"
+readme = "README.md"
+authors = [
+    { name = "Alex Pickering", email = "alex.pickering15@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "watchfiles>=1.1.1",
+]
+
+[tool.uv.workspace]
+members = ["smart-scale"]
+
+[project.scripts]
+smart-scale = "smart_scale:main"
+
