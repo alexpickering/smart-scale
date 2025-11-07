@@ -1,8 +1,6 @@
 from pathlib import Path
 from watchfiles import watch
 
-
-
 def main():
     new_weight_path = Path("~/iCloud_drive/smart-scale-data/today_weight.txt")
 
@@ -21,6 +19,8 @@ def main():
 # web app
 # TODO: start with web app
 # TODO: make web app openable from iPhone
+# LATER: give web app access to weight data from Apple Health?
+#       - or to shortcuts on iPhone?
 
 if __name__ == "__main__":
     main()
