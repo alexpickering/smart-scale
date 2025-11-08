@@ -1,5 +1,6 @@
 // Configuration
-const STORAGE_KEY = 'weightEntries';
+// const STORAGE_KEY = 'weightEntries';
+const API_BASE = '';
 
 // Initialize on page load
 window.addEventListener('DOMContentLoaded', () => {
@@ -18,6 +19,8 @@ function initializeApp() {
     
     // Set default date if empty
     setDefaultDate();
+
+    document.getElementById('save-btn').addEventListener('click', saveWeight);
 }
 
 /**
@@ -55,9 +58,9 @@ function setDefaultDate() {
 }
 
 /**
- * Save weight entry to localStorage
+ * Save weight entry to backend
  */
-function saveWeight() {
+async function saveWeight() {
     const weight = document.getElementById('weight').value;
     const date = document.getElementById('date').value;
     
@@ -67,46 +70,91 @@ function saveWeight() {
         return;
     }
     
-    // Get existing entries
-    const entries = getEntries();
-    
-    // Add new entry
-    entries.push({
-        weight: parseFloat(weight),
-        date: date,
-        timestamp: new Date().toISOString()
-    });
-    
-    // Sort by date (newest first)
-    entries.sort((a, b) => new Date(b.date) - new Date(a.date));
-    
-    // Save to localStorage
-    saveEntries(entries);
-    
-    // Clear weight input (keep date for convenience)
-    document.getElementById('weight').value = '';
-    
-    // Refresh display
-    displayEntries();
+    try {
+        // Send to backend
+        const response = await fetch(`${API_BASE}/api/weights`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                weight: parseFloat(weight),
+                date: date
+            })
+        });
+        
+        if (!response.ok) {
+            throw new Error('Failed to save weight');
+        }
+        
+        const result = await response.json();
+        console.log('Saved to backend:', result);
+        
+        // Show success feedback
+        showSaveSuccess();
+        
+        // Clear weight input (keep date for convenience)
+        document.getElementById('weight').value = '';
+        
+        // Refresh display
+        await displayEntries();
+        
+    } catch (error) {
+        console.error('Error saving weight:', error);
+        alert('Failed to save weight. Check console for details.');
+    }
 }
 
 /**
- * Display all entries from localStorage
+ * Display all entries from backend
  */
-function displayEntries() {
-    const entries = getEntries();
+async function displayEntries() {
     const container = document.getElementById('entries');
     
-    if (entries.length === 0) {
-        container.innerHTML = '<p style="color: #999;">No entries yet</p>';
-        return;
+    try {
+        // Fetch from backend
+        const response = await fetch(`${API_BASE}/api/weights`);
+        
+        if (!response.ok) {
+            throw new Error('Failed to fetch weights');
+        }
+        
+        const data = await response.json();
+        const entries = data.weights;
+        
+        console.log('Fetched from backend:', entries);
+        
+        if (entries.length === 0) {
+            container.innerHTML = '<p style="color: #999;">No entries yet</p>';
+            return;
+        }
+        
+        // Sort by date (newest first)
+        entries.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        container.innerHTML = entries.map(entry => 
+            `<div class="entry">
+                <strong>${formatDate(entry.date)}</strong>: ${entry.weight} lbs
+            </div>`
+        ).join('');
+        
+    } catch (error) {
+        console.error('Error fetching weights:', error);
+        container.innerHTML = '<p style="color: red;">Failed to load weights</p>';
     }
-    
-    container.innerHTML = entries.map(entry => 
-        `<div class="entry">
-            <strong>${formatDate(entry.date)}</strong>: ${entry.weight} lbs
-        </div>`
-    ).join('');
+}
+
+function showSaveSuccess() {
+    const button = document.querySelector('button');
+    const originalText = button.textContent;
+
+    button.textContent = '✓ Saved!';
+    button.style.background = '#34C759';
+
+    setTimeout(() => {
+        button.textContent = originalText;
+        button.style.background = '#007AFF';
+    }, 1000);
 }
 
 /**

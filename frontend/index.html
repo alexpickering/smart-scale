@@ -6,9 +6,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Smart Scale">
-    <link rel="apple-touch-icon" href="/icon-180x180.png">
-    <link rel="manifest" href="/manifest.json">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="apple-touch-icon" href="/static/icon-180x180.png">
+    <link rel="manifest" href="/static/manifest.json">
+    <link rel="stylesheet" href="/static/style.css">
     <title>Smart Scale</title>
 </head>
 <body>
@@ -16,10 +16,24 @@
     
     <input type="number" id="weight" placeholder="Weight (lbs)" step="0.1">
     <input type="date" id="date">
-    <button onclick="saveWeight()">Save Weight</button>
+    <button id="save-btn">Save Weight</button>
+
+    <div style="margin-top: 20px;">
+        <button onclick="displayEntries()" style="background: #5856D6;">
+            🔄 Refresh from Backend
+        </button>
+        <button onclick="showBackendData()" style="background: #FF9500;">
+            📊 Show Backend Database
+        </button>
+    </div>
     
     <div id="entries"></div>
 
-    <script src="/app.js"></script>
+    <div id="backend-data" style="margin-top: 20px; padding: 10px; background: #f0f0f0; border-radius: 8px; display: none;">
+        <h3>Backend Database Contents:</h3>
+        <pre id="backend-json" style="background: white; padding: 10px; border-radius: 4px; overflow-x: auto;"></pre>
+    </div>
+
+    <script src="/static/app.js"></script>
 </body>
 </html>
