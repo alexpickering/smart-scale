@@ -1,2 +1,11 @@
-resources/*
+# directories
+resources/
+ideas/
+data/
+
+# file types
 *.pyc
+*.db
+*.db-journal
+__pycache__/
+.venv/
