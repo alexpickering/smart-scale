@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Smart Scale">
+    <link rel="apple-touch-icon" href="/icon-180x180.png">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="/style.css">
+    <title>Smart Scale</title>
+</head>
+<body>
+    <h1>Smart Scale</h1>
+    
+    <input type="number" id="weight" placeholder="Weight (lbs)" step="0.1">
+    <input type="date" id="date">
+    <button onclick="saveWeight()">Save Weight</button>
+    
+    <div id="entries"></div>
+
+    <script src="/app.js"></script>
+</body>
+</html>
