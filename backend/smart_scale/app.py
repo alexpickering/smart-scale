@@ -8,8 +8,6 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-app.mount("/static", StaticFiles(directory="frontend"), name="static")
-
 # Enable CORS for local development
 app.add_middleware(
     CORSMiddleware,
@@ -56,5 +54,4 @@ def clear_weights():
 def read_root():
     return FileResponse("frontend/index.html")
 
-# Serve frontend
 app.mount("/static", StaticFiles(directory="frontend"), name="static")

@@ -23,5 +23,5 @@ data_path = Path(__file__).parent.parent.parent / "frontend" / "weight_data.csv"
 
 # df = pl.read_csv(data_path.read_text(), has_header=True)
 db = next(get_db())
-pl.read_database(query=query, connection=db.connect())
+pl.read_database(query=query, connection=db)
 df.group_by_dynamic("Date", every="14d").agg(pl.mean("Weight"))
