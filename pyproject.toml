@@ -27,4 +27,4 @@ dev = [
 
 [project.scripts]
 smart-scale = "smart_scale:main"
-
+smart-scale-serve = "smart_scale.server:run"
