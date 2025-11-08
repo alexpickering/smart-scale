@@ -1,0 +1,14 @@
+{
+    "name": "Smart Scale",
+    "short name": "Scale",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#9A8F97",
+    "theme_color": "#E9E3E6",
+    "icons": [
+        {
+            "src": "/scale_icon.svg",
+            "sizes": "180x180"
+        }
+    ]
+}

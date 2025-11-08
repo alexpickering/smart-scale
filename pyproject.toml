@@ -16,6 +16,9 @@ dependencies = []
 [tool.uv.workspace]
 members = ["smart-scale"]
 
+[tool.hatch.build.targets.wheel]
+packages = ["backend/smart_scale"]
+
 [dependency-groups]
 dev = [
     "ipykernel>=7.1.0",
