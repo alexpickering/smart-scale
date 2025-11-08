@@ -5,8 +5,8 @@ metrics.
 
 ## For Developers
 ### Setup 
-- `smart-scale-server` to start uvicorn app
-- `ngrok http 8000` to grab url for app
+- `smart-scale-server` to start uvicorn app (leave running)
+- `ngrok http 8000` to grab url for app (leave running, split terminal)
 #### on iPhone
 - bookmark ngrok url on iPhone home screen 
 - open and test
